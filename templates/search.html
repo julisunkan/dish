@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Search Recipes - GlobalKitchen{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="text-center mb-4">🔍 Search Global Recipes</h1>
+            
+            <form method="POST" action="{{ url_for('search') }}" class="mb-5">
+                <div class="input-group input-group-lg">
+                    <input type="text" class="form-control" name="query" 
+                           placeholder="Search for a recipe (e.g., pasta, chicken, cake)..." 
+                           value="{{ search_query }}" required>
+                    <button class="btn btn-success" type="submit">Search</button>
+                </div>
+            </form>
+
+            {% if search_query %}
+                {% if recipes %}
+                    <h3 class="mb-3">Results for "{{ search_query }}"</h3>
+                    <div class="row">
+                        {% for recipe in recipes %}
+                        <div class="col-md-6 mb-4">
+                            <div class="card recipe-card h-100">
+                                <img src="{{ recipe.strMealThumb }}" class="card-img-top" alt="{{ recipe.strMeal }}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ recipe.strMeal }}</h5>
+                                    <p class="card-text">
+                                        <span class="badge bg-primary">{{ recipe.strCategory }}</span>
+                                        <span class="badge bg-info">{{ recipe.strArea }}</span>
+                                    </p>
+                                    <a href="{{ url_for('recipe_detail', meal_id=recipe.idMeal) }}" 
+                                       class="btn btn-success">View Recipe</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="alert alert-warning text-center">
+                        <h5>No recipes found for "{{ search_query }}"</h5>
+                        <p>Try searching for something else like "pasta", "chicken", or "cake".</p>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="text-center text-muted">
+                    <p class="lead">Start by searching for your favorite dish!</p>
+                    <p>Try: Pasta, Chicken Curry, Chocolate Cake, Pad Thai...</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

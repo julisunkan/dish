@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Grocery List - GlobalKitchen{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h1 class="mb-4">🛒 My Grocery List</h1>
+
+            {% if grocery_items %}
+                <div class="card">
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            {% for item in grocery_items %}
+                            <li class="list-group-item">
+                                <input type="checkbox" class="form-check-input me-2" id="item-{{ loop.index }}">
+                                <label for="item-{{ loop.index }}">{{ item }}</label>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mt-4 d-flex gap-2">
+                    <form method="POST" action="{{ url_for('clear_grocery_list') }}" class="flex-grow-1">
+                        <button type="submit" class="btn btn-danger w-100" 
+                                onclick="return confirm('Are you sure you want to clear your grocery list?')">
+                            ❌ Clear Grocery List
+                        </button>
+                    </form>
+                    <button class="btn btn-outline-secondary" onclick="window.print()">
+                        🖨️ Print
+                    </button>
+                </div>
+            {% else %}
+                <div class="alert alert-info text-center">
+                    <h4>Your grocery list is empty</h4>
+                    <p>Browse recipes and add ingredients to build your shopping list!</p>
+                    <a href="{{ url_for('search') }}" class="btn btn-success">Search Recipes</a>
+                </div>
+            {% endif %}
+
+            <div class="mt-3">
+                <a href="{{ url_for('search') }}" class="btn btn-outline-secondary">&larr; Back to Search</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<style>
+    @media print {
+        .navbar, footer, button, .btn, form {
+            display: none !important;
+        }
+        .form-check-input {
+            -webkit-appearance: checkbox;
+            appearance: checkbox;
+        }
+    }
+</style>
+{% endblock %}

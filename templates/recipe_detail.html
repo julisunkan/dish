@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}{{ meal.strMeal }} - GlobalKitchen{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <a href="{{ url_for('search') }}" class="btn btn-outline-secondary mb-3">&larr; Back to Search</a>
+            
+            <h1 class="mb-3">{{ meal.strMeal }}</h1>
+            
+            <div class="mb-3">
+                <span class="badge bg-primary me-2">{{ meal.strCategory }}</span>
+                <span class="badge bg-info">{{ meal.strArea }}</span>
+            </div>
+
+            <img src="{{ meal.strMealThumb }}" class="img-fluid rounded mb-4" alt="{{ meal.strMeal }}">
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h3 class="card-title">🥘 Ingredients</h3>
+                    <ul class="list-group list-group-flush">
+                        {% for ingredient in ingredients %}
+                        <li class="list-group-item">
+                            <strong>{{ ingredient.name }}</strong>
+                            {% if ingredient.measure %}
+                                - {{ ingredient.measure }}
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    
+                    <form method="POST" action="{{ url_for('add_to_grocery_list', meal_id=meal.idMeal) }}" class="mt-3">
+                        <button type="submit" class="btn btn-success btn-lg w-100">
+                            🛒 Add All Ingredients to Grocery List
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">👨‍🍳 Instructions</h3>
+                    <div class="recipe-instructions">
+                        {{ meal.strInstructions|replace('\r\n', '<br>')|replace('\n', '<br>')|safe }}
+                    </div>
+                </div>
+            </div>
+
+            {% if meal.strYoutube %}
+            <div class="mt-4">
+                <a href="{{ meal.strYoutube }}" target="_blank" class="btn btn-danger">
+                    ▶️ Watch Video Tutorial
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
