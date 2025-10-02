@@ -16,6 +16,12 @@
         </div>
     </form>
 
+    {% if error_message %}
+    <div class="alert alert-danger">
+        {{ error_message }}
+    </div>
+    {% endif %}
+
     {% if search_query %}
         {% if recipes %}
             <div class="mb-3">

@@ -1,0 +1,15 @@
+
+{% extends "base.html" %}
+
+{% block title %}Error - GlobalKitchen{% endblock %}
+
+{% block content %}
+<div class="fade-in">
+    <div class="alert alert-danger text-center">
+        <div style="font-size: 48px; margin-bottom: 16px;">⚠️</div>
+        <h4 style="margin-bottom: 12px;">Oops! Something went wrong</h4>
+        <p style="margin-bottom: 20px;">{{ message or 'An unexpected error occurred.' }}</p>
+        <a href="{{ url_for('search') }}" class="btn btn-success">Back to Search</a>
+    </div>
+</div>
+{% endblock %}
