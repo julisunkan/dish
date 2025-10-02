@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, send_from_directory
 import os
-from api import search_recipes_by_name, get_recipe_by_id, parse_ingredients
+from api import search_recipes_by_name, get_recipe_by_id, parse_ingredients, extract_youtube_id
 from models import Base, engine
 
 app = Flask(__name__)
@@ -35,8 +35,9 @@ def recipe_detail(meal_id):
         return 'Recipe not found', 404
     
     ingredients = parse_ingredients(meal)
+    youtube_id = extract_youtube_id(meal.get('strYoutube'))
     
-    return render_template('recipe_detail.html', meal=meal, ingredients=ingredients)
+    return render_template('recipe_detail.html', meal=meal, ingredients=ingredients, youtube_id=youtube_id)
 
 @app.route('/add-to-grocery-list/<meal_id>', methods=['POST'])
 def add_to_grocery_list(meal_id):
