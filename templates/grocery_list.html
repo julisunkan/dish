@@ -1,55 +1,67 @@
+
 {% extends "base.html" %}
 
 {% block title %}Grocery List - GlobalKitchen{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1 class="mb-4" style="animation: fadeInUp 0.5s ease;">🛒 Grocery List</h1>
+<div class="fade-in">
+    <h1>Grocery List</h1>
 
     {% if grocery_items %}
-        <div class="card" style="animation: fadeInUp 0.8s ease;">
-            <div class="card-body">
-                <ul class="list-group list-group-flush">
+        <div class="card mb-4">
+            <div class="card-body" style="padding: 0;">
+                <div class="list-group list-group-flush">
                     {% for item in grocery_items %}
-                    <li class="list-group-item">
-                        <input type="checkbox" class="form-check-input me-2" id="item-{{ loop.index }}">
-                        <label for="item-{{ loop.index }}">{{ item }}</label>
-                    </li>
+                    <div class="list-group-item">
+                        <label class="d-flex align-items-center" style="cursor: pointer; margin: 0;">
+                            <input type="checkbox" class="form-check-input me-3" id="item-{{ loop.index }}" 
+                                   style="width: 20px; height: 20px; cursor: pointer;">
+                            <span id="label-{{ loop.index }}">{{ item }}</span>
+                        </label>
+                    </div>
                     {% endfor %}
-                </ul>
+                </div>
             </div>
         </div>
 
-        <div class="mt-4 d-flex gap-2">
+        <div class="d-flex gap-3">
             <form method="POST" action="{{ url_for('clear_grocery_list') }}" class="flex-grow-1">
                 <button type="submit" class="btn btn-danger w-100" 
-                        onclick="return confirm('Are you sure you want to clear your grocery list?')">
-                    ❌ Clear Grocery List
+                        onclick="return confirm('Clear your entire grocery list?')">
+                    Clear List
                 </button>
             </form>
-            <button class="btn btn-outline-secondary" onclick="window.print()">
+            <button class="btn btn-outline-secondary" onclick="window.print()" style="min-width: 120px;">
                 🖨️ Print
             </button>
         </div>
     {% else %}
         <div class="alert alert-info text-center">
-            <h4>Your grocery list is empty</h4>
-            <p>Browse recipes and add ingredients to build your shopping list!</p>
+            <div style="font-size: 48px; margin-bottom: 16px;">🛒</div>
+            <h4 style="margin-bottom: 12px;">Your grocery list is empty</h4>
+            <p style="margin-bottom: 20px; color: var(--text-secondary);">
+                Browse recipes and add ingredients to build your shopping list
+            </p>
             <a href="{{ url_for('search') }}" class="btn btn-success">Search Recipes</a>
         </div>
     {% endif %}
 
+    {% if grocery_items %}
     <div class="mt-3">
-        <a href="{{ url_for('search') }}" class="btn btn-outline-secondary">&larr; Back to Search</a>
+        <a href="{{ url_for('search') }}" class="btn btn-outline-secondary">← Back to Search</a>
     </div>
+    {% endif %}
 </div>
 {% endblock %}
 
 {% block scripts %}
 <style>
     @media print {
-        .navbar, footer, button, .btn, form {
+        .app-header, .bottom-nav, .btn, form, button {
             display: none !important;
+        }
+        body {
+            padding: 20px;
         }
         .form-check-input {
             -webkit-appearance: checkbox;
@@ -57,4 +69,18 @@
         }
     }
 </style>
+<script>
+    document.querySelectorAll('.form-check-input').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const label = document.getElementById('label-' + this.id.split('-')[1]);
+            if (this.checked) {
+                label.style.textDecoration = 'line-through';
+                label.style.color = 'var(--text-secondary)';
+            } else {
+                label.style.textDecoration = 'none';
+                label.style.color = 'var(--text-primary)';
+            }
+        });
+    });
+</script>
 {% endblock %}
