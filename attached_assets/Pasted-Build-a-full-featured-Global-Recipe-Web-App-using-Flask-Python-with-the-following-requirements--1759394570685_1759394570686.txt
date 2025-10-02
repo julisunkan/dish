@@ -1,0 +1,102 @@
+Build a full-featured Global Recipe Web App using Flask (Python) with the following requirements:
+
+💡 App Name
+
+GlobalKitchen – a lightweight, global recipe browser and grocery list manager.
+
+🧱 Core Features (No user login required):
+
+Global Recipe Search
+
+Use the free TheMealDB API (https://www.themealdb.com/api.php)
+
+Allow users to search recipes by name
+
+Display title, image, cuisine, and category
+
+Show full ingredients and instructions on a detail page
+
+Grocery List
+
+Add "🛒 Add to Grocery List" button on the recipe detail page
+
+Store ingredients in Flask session (not database, no login)
+
+Show a grocery list page with all collected ingredients
+
+Add a “❌ Clear Grocery List” option
+
+Database (SQLite)
+
+Set up a local SQLite database using SQLAlchemy
+
+Include models for Recipe and Ingredient (for future use)
+
+No need to store API recipes—just define the models
+
+Progressive Web App (PWA)
+
+Make the app installable on mobile or desktop
+
+Include a manifest.json and service-worker.js in static/
+
+Register the service worker from your HTML layout
+
+📦 Tech Stack
+
+Backend: Python + Flask
+
+Frontend: HTML, Jinja2 (Flask templates), Bootstrap (optional)
+
+Database: SQLite + SQLAlchemy (for local storage)
+
+Session: Flask session to store grocery list
+
+External API: TheMealDB (free, no API key required)
+
+PWA: Service worker + manifest for installability/offline support
+
+🗂️ Project Structure
+/ (root)
+├── main.py                  # Flask app
+├── models.py                # SQLAlchemy models
+├── api.py                   # API integration logic
+├── templates/               # Jinja2 templates
+│   ├── base.html
+│   ├── search.html
+│   ├── recipe_detail.html
+│   └── grocery_list.html
+├── static/
+│   ├── manifest.json
+│   ├── service-worker.js
+│   └── icons/               # App icons for PWA
+│       ├── icon-192.png
+│       └── icon-512.png
+
+🧪 Functional Notes
+
+No user registration or login required
+
+Recipes are fetched live from TheMealDB
+
+Grocery list is stored temporarily per session
+
+No persistent favorites or user data
+
+Future option: Add custom recipes to SQLite DB
+
+✅ Deliverables
+
+A working Flask app on Replit
+
+Live search and browse experience
+
+View recipe details
+
+Add recipe ingredients to a grocery list
+
+Clear grocery list button
+
+App can be installed as a PWA and used offline (basic pages)
+
+Clean, simple UI (use Bootstrap for layout if needed)
