@@ -3,12 +3,12 @@
 {% block title %}{{ meal.strMeal }} - GlobalKitchen{% endblock %}
 
 {% block content %}
-<div class="container my-5">
+<div class="container">
     <div class="row">
         <div class="col-lg-10 mx-auto">
             <a href="{{ url_for('search') }}" class="btn btn-outline-secondary mb-3" style="animation: slideInRight 0.5s ease; background: white;">&larr; Back to Search</a>
             
-            <h1 class="mb-3" style="animation: fadeInUp 0.6s ease; color: white; text-shadow: 2px 2px 8px rgba(0,0,0,0.3);">{{ meal.strMeal }}</h1>
+            <h1 class="mb-3" style="animation: fadeInUp 0.6s ease;">{{ meal.strMeal }}</h1>
             
             <div class="mb-4">
                 <span class="badge bg-primary me-2">{{ meal.strCategory }}</span>

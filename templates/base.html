@@ -79,24 +79,10 @@
         
         body {
             min-height: 100vh;
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             padding-top: 70px;
             padding-bottom: 80px;
             margin: 0;
-        }
-        
-        @keyframes gradientShift {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
         }
         
         .mobile-header {
@@ -141,24 +127,31 @@
         }
         
         .content {
-            max-width: 100%;
-            padding: 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                padding: 15px;
+            }
         }
         
         .recipe-card {
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s ease;
             border: none !important;
-            box-shadow: var(--card-shadow);
-            border-radius: 15px !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border-radius: 12px !important;
             overflow: hidden;
             animation: fadeInUp 0.6s ease;
             animation-fill-mode: both;
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            background: #ffffff;
         }
         
         .recipe-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
         }
         
         .recipe-card:active {
@@ -253,8 +246,19 @@
         }
         
         h1, h2, h3 {
-            color: #2d3748;
-            font-weight: 700;
+            color: #1a202c;
+            font-weight: 600;
+        }
+        
+        .container h1 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container h1 {
+                font-size: 1.5rem;
+            }
         }
         
         .list-group-item {
