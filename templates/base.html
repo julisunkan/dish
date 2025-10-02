@@ -12,25 +12,179 @@
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='icons/icon-192.png') }}">
     
     <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --success-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --info-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --warm-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --card-hover-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
         body {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         }
+        
         .content {
             flex: 1;
         }
+        
+        .navbar {
+            background: var(--primary-gradient) !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            transform: translateY(-2px);
+        }
+        
+        .recipe-card {
+            transition: all 0.3s ease;
+            border: none !important;
+            box-shadow: var(--card-shadow);
+            border-radius: 15px !important;
+            overflow: hidden;
+        }
+        
+        .recipe-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--card-hover-shadow);
+        }
+        
         .recipe-card img {
             height: 200px;
             object-fit: cover;
+            transition: transform 0.3s ease;
         }
-        .navbar-brand {
-            font-weight: bold;
+        
+        .recipe-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .card {
+            border: none;
+            box-shadow: var(--card-shadow);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .btn-success {
+            background: var(--success-gradient);
+            border: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245, 87, 108, 0.4);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #f83600 0%, #fe8c00 100%);
+            border: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(248, 54, 0, 0.3);
+        }
+        
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(248, 54, 0, 0.4);
+        }
+        
+        .btn-outline-secondary {
+            border: 2px solid #667eea;
+            color: #667eea;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-secondary:hover {
+            background: var(--primary-gradient);
+            border-color: transparent;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .badge {
+            padding: 0.5em 0.8em;
+            font-weight: 600;
+            border-radius: 10px;
+        }
+        
+        .badge.bg-primary {
+            background: var(--primary-gradient) !important;
+        }
+        
+        .badge.bg-info {
+            background: var(--info-gradient) !important;
+        }
+        
+        .input-group-lg .form-control {
+            border-radius: 15px 0 0 15px !important;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+        
+        .input-group-lg .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+        
+        .input-group-lg .btn {
+            border-radius: 0 15px 15px 0 !important;
+        }
+        
+        footer {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            color: white !important;
+        }
+        
+        footer small {
+            color: rgba(255, 255, 255, 0.9) !important;
+        }
+        
+        h1, h2, h3 {
+            color: #2d3748;
+            font-weight: 700;
+        }
+        
+        .list-group-item {
+            border: none;
+            border-bottom: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+        
+        .list-group-item:hover {
+            background-color: #f8f9fa;
+            padding-left: 1.5rem;
+        }
+        
+        .alert {
+            border: none;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand" href="{{ url_for('search') }}">🌍 GlobalKitchen</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -58,8 +212,8 @@
         {% block content %}{% endblock %}
     </div>
 
-    <footer class="bg-light py-3 mt-5">
-        <div class="container text-center text-muted">
+    <footer class="py-4 mt-5">
+        <div class="container text-center">
             <small>GlobalKitchen &copy; 2025 | Powered by TheMealDB</small>
         </div>
     </footer>
