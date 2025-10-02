@@ -46,7 +46,7 @@
             background: var(--background);
             color: var(--text-primary);
             min-height: 100vh;
-            padding-top: 76px;
+            padding-top: 60px;
             padding-bottom: 80px;
             line-height: 1.6;
         }
@@ -57,14 +57,13 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 76px;
+            height: 60px;
             background: var(--card-bg);
             border-bottom: 1px solid var(--border);
             z-index: 1000;
             display: flex;
             align-items: center;
             padding: 0 20px;
-            box-shadow: var(--shadow-sm);
         }
         
         .header-content {
@@ -73,51 +72,28 @@
             margin: 0 auto;
             display: flex;
             align-items: center;
-            justify-content: space-between;
         }
         
         .brand {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             text-decoration: none;
             transition: opacity 0.2s;
         }
         
         .brand:hover {
-            opacity: 0.8;
+            opacity: 0.7;
         }
         
         .brand-icon {
-            width: 44px;
-            height: 44px;
-            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            box-shadow: var(--shadow-md);
-        }
-        
-        .brand-text {
-            display: flex;
-            flex-direction: column;
+            font-size: 28px;
         }
         
         .brand-name {
             font-size: 20px;
-            font-weight: 700;
+            font-weight: 600;
             color: var(--text-primary);
-            letter-spacing: -0.5px;
-        }
-        
-        .brand-tagline {
-            font-size: 11px;
-            font-weight: 500;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
         
         /* Content Container */
@@ -443,11 +419,8 @@
     <header class="app-header">
         <div class="header-content">
             <a href="{{ url_for('search') }}" class="brand">
-                <div class="brand-icon">🌍</div>
-                <div class="brand-text">
-                    <div class="brand-name">GlobalKitchen</div>
-                    <div class="brand-tagline">Recipe Discovery</div>
-                </div>
+                <span class="brand-icon">🌍</span>
+                <span class="brand-name">GlobalKitchen</span>
             </a>
         </div>
     </header>
