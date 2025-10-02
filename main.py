@@ -5,6 +5,9 @@ from models import Base, engine
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SESSION_SECRET', 'dev-secret-key-change-in-production')
+app.config['SESSION_TYPE'] = 'filesystem'
+app.config['SESSION_PERMANENT'] = True
+app.config['PERMANENT_SESSION_LIFETIME'] = 3600  # 1 hour
 
 Base.metadata.create_all(engine)
 
@@ -67,11 +70,17 @@ def add_to_grocery_list(meal_id):
     session['grocery_list'] = grocery_list
     session.modified = True
     
+    print(f"DEBUG: Added ingredients. Total items now: {len(grocery_list)}")
+    print(f"DEBUG: Session ID: {session.get('_id', 'no-id')}")
+    
     return redirect(url_for('recipe_detail', meal_id=meal_id))
 
 @app.route('/grocery-list')
 def grocery_list():
     grocery_items = session.get('grocery_list', [])
+    print(f"DEBUG: Session ID: {session.get('_id', 'no-id')}")
+    print(f"DEBUG: Grocery items count: {len(grocery_items)}")
+    print(f"DEBUG: Grocery items: {grocery_items}")
     return render_template('grocery_list.html', grocery_items=grocery_items)
 
 @app.route('/clear-grocery-list', methods=['POST'])
