@@ -8,6 +8,13 @@ app.secret_key = os.environ.get('SESSION_SECRET', 'dev-secret-key-change-in-prod
 
 Base.metadata.create_all(engine)
 
+@app.after_request
+def add_header(response):
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+    return response
+
 @app.route('/service-worker.js')
 def service_worker():
     return send_from_directory('.', 'service-worker.js', mimetype='application/javascript')
