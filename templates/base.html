@@ -17,8 +17,60 @@
             --success-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             --info-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             --warm-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --orange-gradient: linear-gradient(135deg, #ff9a56 0%, #ff6a88 100%);
+            --green-gradient: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            --purple-gradient: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
             --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             --card-hover-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        @keyframes shimmer {
+            0% {
+                background-position: -1000px 0;
+            }
+            100% {
+                background-position: 1000px 0;
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
         }
         
         * {
@@ -27,10 +79,24 @@
         
         body {
             min-height: 100vh;
-            background: #f8f9fa;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
             padding-top: 60px;
             padding-bottom: 80px;
             margin: 0;
+        }
+        
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
         
         .mobile-header {
@@ -39,22 +105,22 @@
             left: 0;
             right: 0;
             height: 60px;
-            background: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 1000;
+            animation: slideInRight 0.6s ease;
         }
         
         .mobile-header h1 {
             margin: 0;
             font-size: 1.3rem;
             font-weight: 700;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: white;
+            animation: float 3s ease-in-out infinite;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
         
         .content {
@@ -63,11 +129,19 @@
         }
         
         .recipe-card {
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: none !important;
             box-shadow: var(--card-shadow);
             border-radius: 15px !important;
             overflow: hidden;
+            animation: fadeInUp 0.6s ease;
+            animation-fill-mode: both;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        }
+        
+        .recipe-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.3);
         }
         
         .recipe-card:active {
@@ -77,6 +151,11 @@
         .recipe-card img {
             height: 200px;
             object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .recipe-card:hover img {
+            transform: scale(1.1);
         }
         
         .card {
@@ -131,11 +210,14 @@
         }
         
         .badge.bg-primary {
-            background: var(--primary-gradient) !important;
+            background: var(--orange-gradient) !important;
+            animation: pulse 2s ease-in-out infinite;
         }
         
         .badge.bg-info {
-            background: var(--info-gradient) !important;
+            background: var(--purple-gradient) !important;
+            animation: pulse 2s ease-in-out infinite;
+            animation-delay: 0.3s;
         }
         
         .input-group-lg .form-control {
@@ -176,13 +258,14 @@
             left: 0;
             right: 0;
             height: 70px;
-            background: white;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 -4px 20px rgba(102, 126, 234, 0.4);
             display: flex;
             justify-content: space-around;
             align-items: center;
             z-index: 1000;
             padding: 0;
+            animation: fadeInUp 0.8s ease;
         }
         
         .bottom-nav-item {
@@ -192,7 +275,7 @@
             align-items: center;
             justify-content: center;
             text-decoration: none;
-            color: #9ca3af;
+            color: rgba(255, 255, 255, 0.6);
             transition: all 0.3s ease;
             padding: 10px;
             position: relative;
@@ -200,11 +283,13 @@
         
         .bottom-nav-item:hover,
         .bottom-nav-item:focus {
-            color: #667eea;
+            color: white;
+            transform: scale(1.1);
         }
         
         .bottom-nav-item.active {
-            color: #667eea;
+            color: white;
+            transform: scale(1.15);
         }
         
         .bottom-nav-item.active::before {
@@ -215,8 +300,9 @@
             transform: translateX(-50%);
             width: 40px;
             height: 3px;
-            background: var(--primary-gradient);
+            background: linear-gradient(90deg, #fee140, #fa709a);
             border-radius: 0 0 3px 3px;
+            animation: shimmer 2s infinite;
         }
         
         .bottom-nav-icon {
@@ -294,6 +380,14 @@
                     .catch(err => console.log('ServiceWorker registration failed:', err));
             });
         }
+        
+        // Stagger card animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.recipe-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
     </script>
     
     {% block scripts %}{% endblock %}
